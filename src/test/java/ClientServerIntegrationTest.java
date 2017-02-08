@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ClientServerIntegrationTest {
 
-    Logger logger = Logger.getLogger(ClientServerIntegrationTest.class);
+    private Logger logger = Logger.getLogger(ClientServerIntegrationTest.class);
 
     private final ExecutorService executor = Executors.newFixedThreadPool(50);
 

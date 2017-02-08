@@ -111,7 +111,8 @@ public class ServerTCP implements Runnable {
     }
     private void write(SelectionKey key) {
         SocketChannel channel = (SocketChannel) key.channel();
-        String request = clientsRequests.get(channel).substring(0, (clientsRequests.get(channel).length() - END_OF_MESSAGE_FLAG.length()));
+        String request = clientsRequests.get(channel).
+                substring(0, (clientsRequests.get(channel).length() - END_OF_MESSAGE_FLAG.length()));
         String response = request + SERVER_ECHO;
         ByteBuffer buffer = ByteBuffer.wrap(response.getBytes());
         System.out.println("Got: " + request);

@@ -17,10 +17,6 @@ public class ClientTCP {
 
     private String serverAnswer = null;
 
-    private ByteBuffer writeBuffer ;
-
-    private ByteBuffer readBuffer ;
-
     private InetSocketAddress inetSocketAddress ;
 
     public ClientTCP(String host, int port) {
@@ -32,19 +28,16 @@ public class ClientTCP {
         try {
             socketChannel = SocketChannel.open(inetSocketAddress);
             String message = request + ServerTCP.END_OF_MESSAGE_FLAG;
-            writeBuffer = ByteBuffer.wrap(message.getBytes());
+            ByteBuffer writeBuffer = ByteBuffer.wrap(message.getBytes());
             socketChannel.write(writeBuffer);
-            readBuffer = ByteBuffer.allocate(1024);
+            ByteBuffer readBuffer = ByteBuffer.allocate(1024);
             int numRead = socketChannel.read(readBuffer);
             byte[] data = new byte[numRead];
             System.arraycopy(readBuffer.array(), 0, data, 0, numRead);
             serverAnswer = new String(data);
-
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            writeBuffer.clear();
-            readBuffer.clear();
             try {
                 socketChannel.close();
             } catch (IOException e) {
